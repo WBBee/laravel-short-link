@@ -25,9 +25,9 @@ Simply, it's a basic create, read, update and delete operation to create shorten
 5. run php artisan key:generate
 6. run php artisan migrate --seed
     * Login:
-        email: email@admin.com
+        email: email@admin.com,
         pass: admin123
-7. php artisan serve
+7. run php artisan serve
 
 Now you can create your own short links. 
 <br>
