@@ -6,7 +6,7 @@ Simple Laravel shorten link with simple admin panel,
 Simply, it's a basic create, read, update and delete operation to create shorten link with Laravel 9.0. 
 
 ## Preview
-![PANEL](https://res.cloudinary.com/kingsconsult/image/upload/v1602364575/crud_llekuf.png)
+![PANEL](https://github.com/WBBee/laravel-short-link/blob/master/asset/capture1.PNG)
 
 ## Requirements 
 
