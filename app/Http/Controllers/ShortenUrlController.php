@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShortenUrl\StoreRequest;
+use App\Http\Requests\ShortenUrl\UpdateRequest;
 use App\Http\Resources\MyLinks;
 use App\Services\ShortenUrlServices;
 use Illuminate\Http\Request;
@@ -46,12 +48,8 @@ class ShortenUrlController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $request->validate([
-            'long_url' => 'required|active_url',
-        ]);
-
         $user = Auth::user();
 
         try {
@@ -98,19 +96,17 @@ class ShortenUrlController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateRequest $request)
     {
-        $validate = $request->validate([
-            'id' => 'required|integer',
-            'title' => 'required|string',
-            'shorten_url' => 'required|string|max:100|regex:/^\S*$/u|unique:short_links,shorten_url,' . $request['id'],
-            'destination_url' => 'required|active_url|max:500',
-        ], [
-            'shorten_url.regex' => 'the shorten url cannot contain whitespace',
-        ]);
+        $validator = [
+            'id' => $request->input('id_link'),
+            'title' => $request->input('title'),
+            'shorten_url' => $request->input('shorten_url'),
+            'destination_url' => $request->input('destination_url'),
+        ];
 
         try {
-            $this->shorten_url->update_my_link($validate);
+            $this->shorten_url->update_my_link($validator);
         } catch (\Throwable $th) {
             return $th->getMessage();
             return back()->with('update_error', $th->getMessage());
